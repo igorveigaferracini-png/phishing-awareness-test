@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Phishing Awareness | Security Test</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                   Helvetica, Arial, sans-serif;
+      background: #f4f7fb;
+      color: #172033;
+      line-height: 1.6;
+    }
+
+    /* =========================
+       HEADER
+    ========================== */
+
+    header {
+      background: linear-gradient(135deg, #0b1f3a, #123f63);
+      color: white;
+      padding: 22px 30px;
+      box-shadow: 0 3px 15px rgba(0,0,0,0.12);
+    }
+
+    .nav {
+      max-width: 1050px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    .security-badge {
+      background: rgba(255,255,255,0.12);
+      padding: 7px 13px;
+      border-radius: 20px;
+      font-size: 13px;
+    }
+
+    /* =========================
+       HERO
+    ========================== */
+
+    .hero {
+      background: linear-gradient(135deg, #0b1f3a, #176b87);
+      color: white;
+      padding: 70px 20px 90px;
+      text-align: center;
+    }
+
+    .hero-content {
+      max-width: 850px;
+      margin: auto;
+    }
+
+    .hero-icon {
+      font-size: 48px;
+      margin-bottom: 15px;
+    }
+
+    .hero h1 {
+      font-size: 46px;
+      margin-bottom: 15px;
+      letter-spacing: -1px;
+    }
+
+    .hero p {
+      font-size: 19px;
+      color: #dcecf5;
+      max-width: 700px;
+      margin: auto;
+    }
+
+    /* =========================
+       MAIN CONTAINER
+    ========================== */
+
+    .container {
+      max-width: 900px;
+      margin: -45px auto 60px;
+      padding: 0 20px;
+      position: relative;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 25px;
+      box-shadow: 0 8px 30px rgba(20, 40, 70, 0.08);
+      border: 1px solid #e8edf4;
+    }
+
+    .section-title {
+      font-size: 24px;
+      margin-bottom: 8px;
+      color: #102a43;
+    }
+
+    .section-subtitle {
+      color: #68778d;
+      margin-bottom: 25px;
+    }
+
+    /* =========================
+       ALERT
+    ========================== */
+
+    .alert {
+      display: flex;
+      gap: 15px;
+      align-items: flex-start;
+      background: #eef8fb;
+      border-left: 4px solid #1597a5;
+      padding: 18px;
+      border-radius: 10px;
+      margin-bottom: 25px;
+    }
+
+    .alert-icon {
+      font-size: 23px;
+    }
+
+    .alert strong {
+      color: #0b5964;
+    }
+
+    /* =========================
+       EMAIL
+    ========================== */
+
+    .email {
+      border: 1px solid #dce3eb;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .email-top {
+      background: #f7f9fc;
+      padding: 18px 20px;
+      border-bottom: 1px solid #e1e6ed;
+    }
+
+    .email-row {
+      margin-bottom: 5px;
+      font-size: 14px;
+    }
+
+    .email-label {
+      color: #718096;
+      display: inline-block;
+      width: 70px;
+    }
+
+    .email-body {
+      padding: 28px;
+    }
+
+    .email-body p {
+      margin-bottom: 18px;
+    }
+
+    .email-button {
+      display: inline-block;
+      padding: 12px 22px;
+      background: #176b87;
+      color: white;
+      border-radius: 7px;
+      text-decoration: none;
+      font-weight: 600;
+      margin: 8px 0 20px;
+    }
+
+    .suspicious {
+      color: #c0392b;
+      font-weight: 600;
+    }
+
+    /* =========================
+       CLUES
+    ========================== */
+
+    .clues {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .clue {
+      background: #f8fafc;
+      border: 1px solid #e5eaf0;
+      border-radius: 10px;
+      padding: 16px;
+    }
+
+    .clue-title {
+      font-weight: 700;
+      margin-bottom: 5px;
+      color: #183b56;
+    }
+
+    .clue p {
+      font-size: 14px;
+      color: #68778d;
+    }
+
+    /* =========================
+       BUTTON
+    ========================== */
+
+    .button-container {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .btn {
+      border: none;
+      background: linear-gradient(135deg, #176b87, #1597a5);
+      color: white;
+      padding: 14px 28px;
+      border-radius: 9px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 5px 15px rgba(23,107,135,0.25);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(23,107,135,0.3);
+    }
+
+    /* =========================
+       RESULT
+    ========================== */
+
+    #result {
+      display: none;
+      margin-top: 25px;
+      padding: 22px;
+      border-radius: 12px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .result-danger {
+      background: #fff4f2;
+      border: 1px solid #f3c7c0;
+    }
+
+    .result-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #b9382f;
+      margin-bottom: 10px;
+    }
+
+    .result-list {
+      margin: 15px 0 0 20px;
+    }
+
+    .result-list li {
+      margin-bottom: 7px;
+    }
+
+    /* =========================
+       SECURITY TIPS
+    ========================== */
+
+    .tips {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      margin-top: 20px;
+    }
+
+    .tip {
+      padding: 20px;
+      background: #f8fafc;
+      border-radius: 12px;
+      border: 1px solid #e6ebf1;
+    }
+
+    .tip-icon {
+      font-size: 25px;
+      margin-bottom: 8px;
+    }
+
+    .tip h3 {
+      font-size: 16px;
+      margin-bottom: 5px;
+      color: #183b56;
+    }
+
+    .tip p {
+      font-size: 14px;
+      color: #68778d;
+    }
+
+    /* =========================
+       FOOTER
+    ========================== */
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #7b8794;
+      font-size: 13px;
+    }
+
+    .footer-security {
+      color: #176b87;
+      font-weight: 600;
+    }
+
+    /* =========================
+       ANIMATION
+    ========================== */
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(5px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* =========================
+       MOBILE
+    ========================== */
+
+    @media (max-width: 700px) {
+
+      .hero {
+        padding: 50px 20px 75px;
+      }
+
+      .hero h1 {
+        font-size: 34px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      .card {
+        padding: 22px;
+      }
+
+      .clues,
+      .tips {
+        grid-template-columns: 1fr;
+      }
+
+      .email-body {
+        padding: 20px;
+      }
+
+      .email-label {
+        width: 60px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- =========================
+     HEADER
+========================== -->
+
+<header>
+  <div class="nav">
+
+    <div class="logo">
+      🛡️ Security Awareness
+    </div>
+
+    <div class="security-badge">
+      Educational Project
+    </div>
+
+  </div>
+</header>
+
+
+<!-- =========================
+     HERO
+========================== -->
+
+<section class="hero">
+
+  <div class="hero-content">
+
+    <div class="hero-icon">
+      🔐
+    </div>
+
+    <h1>Phishing Awareness Test</h1>
+
+    <p>
+      Impara a riconoscere i segnali di un tentativo di phishing
+      prima che possa diventare un problema.
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     MAIN
+========================== -->
+
+<main class="container">
+
+
+  <!-- INTRO -->
+
+  <div class="card">
+
+    <div class="alert">
+
+      <div class="alert-icon">
+        💡
+      </div>
+
+      <div>
+        <strong>Perché questo test?</strong>
+
+        <p>
+          Il phishing sfrutta spesso urgenza, paura, curiosità
+          o fiducia per spingere una persona a compiere
+          un'azione senza verificare la richiesta.
+        </p>
+
+      </div>
+
+    </div>
+
+    <h2 class="section-title">
+      Riesci a riconoscere questa email?
+    </h2>
+
+    <p class="section-subtitle">
+      Osserva attentamente mittente, contenuto e richiesta.
+      Poi analizza il messaggio.
+    </p>
+
+
+    <!-- EMAIL -->
+
+    <div class="email">
+
+      <div class="email-top">
+
+        <div class="email-row">
+          <span class="email-label">Da:</span>
+          security@banc0-online-support.com
+        </div>
+
+        <div class="email-row">
+          <span class="email-label">A:</span>
+          Customer
+        </div>
+
+        <div class="email-row">
+          <span class="email-label">Oggetto:</span>
+          <strong>⚠️ Azione richiesta: account in sospensione</strong>
+        </div>
+
+      </div>
+
+
+      <div class="email-body">
+
+        <p>
+          Gentile cliente,
+        </p>
+
+        <p>
+          abbiamo rilevato un'attività insolita associata
+          al tuo account.
+        </p>
+
+        <p>
+          Per motivi di sicurezza, il tuo account potrebbe
+          essere <strong>sospeso entro 24 ore</strong>.
+        </p>
+
+        <p>
+          Per evitare l'interruzione del servizio,
+          verifica immediatamente le informazioni del tuo account:
+        </p>
+
+        <a href="#"
+           class="email-button"
+           onclick="return false;">
+          Verifica il mio account
+        </a>
+
+        <p>
+          Grazie,<br>
+          <strong>Security Team</strong>
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- CLUES -->
+
+    <h3 style="margin-top:30px; margin-bottom:15px;">
+      🔎 Alcuni segnali da osservare
+    </h3>
+
+    <div class="clues">
+
+      <div class="clue">
+
+        <div class="clue-title">
+          🚩 Mittente
+        </div>
+
+        <p>
+          Il dominio sembra insolito e potrebbe non
+          appartenere al servizio indicato.
+        </p>
+
+      </div>
+
+
+      <div class="clue">
+
+        <div class="clue-title">
+          ⏱️ Urgenza
+        </div>
+
+        <p>
+          Il messaggio utilizza una scadenza ravvicinata
+          per spingerti ad agire rapidamente.
+        </p>
+
+      </div>
+
+
+      <div class="clue">
+
+        <div class="clue-title">
+          🔗 Link
+        </div>
+
+        <p>
+          Un link inatteso che richiede di verificare
+          un account dovrebbe essere controllato attentamente.
+        </p>
+
+      </div>
+
+
+      <div class="clue">
+
+        <div class="clue-title">
+          😨 Pressione
+        </div>
+
+        <p>
+          La minaccia di perdere l'accesso può influenzare
+          il comportamento dell'utente.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- BUTTON -->
+
+    <div class="button-container">
+
+      <button class="btn" onclick="analyzeEmail()">
+        🔍 Analizza l'email
+      </button>
+
+    </div>
+
+
+    <!-- RESULT -->
+
+    <div id="result">
+
+      <div class="result-title">
+        ⚠️ Probabile tentativo di phishing
+      </div>
+
+      <p>
+        Questa email contiene diversi indicatori
+        tipici di un tentativo di phishing.
+      </p>
+
+      <ul class="result-list">
+
+        <li>
+          Il dominio del mittente presenta elementi sospetti.
+        </li>
+
+        <li>
+          Viene utilizzata una forte pressione temporale.
+        </li>
+
+        <li>
+          Il destinatario viene invitato a verificare
+          immediatamente il proprio account.
+        </li>
+
+        <li>
+          La minaccia di sospensione può indurre
+          l'utente ad agire senza verificare.
+        </li>
+
+      </ul>
+
+      <p style="margin-top:15px;">
+        <strong>
+          Regola fondamentale:
+        </strong>
+        fermati, verifica la fonte e accedi al servizio
+        attraverso un canale ufficiale.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- SECURITY TIPS -->
+
+  <div class="card">
+
+    <h2 class="section-title">
+      🛡️ Security Tips
+    </h2>
+
+    <p class="section-subtitle">
+      Alcune semplici abitudini possono ridurre
+      significativamente il rischio di phishing.
+    </p>
+
+
+    <div class="tips">
+
+      <div class="tip">
+
+        <div class="tip-icon">
+          🔍
+        </div>
+
+        <h3>Controlla il mittente</h3>
+
+        <p>
+          Non fidarti solo del nome visualizzato.
+          Controlla sempre l'indirizzo completo.
+        </p>
+
+      </div>
+
+
+      <div class="tip">
+
+        <div class="tip-icon">
+          🔗
+        </div>
+
+        <h3>Controlla i link</h3>
+
+        <p>
+          Prima di cliccare, verifica dove conduce
+          realmente il collegamento.
+        </p>
+
+      </div>
+
+
+      <div class="tip">
+
+        <div class="tip-icon">
+          ⏸️
+        </div>
+
+        <h3>Fermati un momento</h3>
+
+        <p>
+          L'urgenza è spesso utilizzata per impedire
+          all'utente di riflettere.
+        </p>
+
+      </div>
+
+
+      <div class="tip">
+
+        <div class="tip-icon">
+          🔐
+        </div>
+
+        <h3>Usa MFA</h3>
+
+        <p>
+          L'autenticazione a più fattori aggiunge
+          un ulteriore livello di protezione.
+        </p>
+
+      </div>
+
+
+      <div class="tip">
+
+        <div class="tip-icon">
+          🌐
+        </div>
+
+        <h3>Usa il sito ufficiale</h3>
+
+        <p>
+          Se ricevi una richiesta sospetta, apri
+          direttamente il sito ufficiale invece di usare il link.
+        </p>
+
+      </div>
+
+
+      <div class="tip">
+
+        <div class="tip-icon">
+          📞
+        </div>
+
+        <h3>Verifica la richiesta</h3>
+
+        <p>
+          In caso di dubbio, contatta direttamente
+          l'organizzazione attraverso un canale conosciuto.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+</main>
+
+
+<!-- =========================
+     FOOTER
+========================== -->
+
+<footer>
+
+  <span class="footer-security">
+    🛡️ Security Awareness Project
+  </span>
+
+  <br>
+
+  Educational use only · No personal data collected
+
+</footer>
+
+
+<script>
+
+function analyzeEmail() {
+
+  const result = document.getElementById("result");
+
+  result.style.display = "block";
+
+  result.className = "result-danger";
+
+  result.scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+
+}
+
+</script>
+
+</body>
+</html>
